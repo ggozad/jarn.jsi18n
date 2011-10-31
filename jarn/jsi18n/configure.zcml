@@ -1,0 +1,27 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="jarn.jsi18n">
+
+  <browser:view
+    for="*"
+    name="i18n-js"
+    class=".view.i18njs"
+    permission="zope2.View"
+    />
+
+  <browser:resource
+    name="jsi18n.js"
+    file="jsi18n.js"
+  />
+
+  <genericsetup:registerProfile
+    name="default"
+    title="jarn.jsi18n"
+    directory="profiles/default"
+    description="i18n for JS in Plone"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+</configure>
