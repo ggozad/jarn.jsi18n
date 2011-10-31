@@ -6,7 +6,7 @@
 
   <browser:view
     for="*"
-    name="i18n-js"
+    name="jsi18n"
     class=".view.i18njs"
     permission="zope2.View"
     />
