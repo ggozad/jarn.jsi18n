@@ -17,7 +17,7 @@ In order to instantiate a ``MessageFactory`` and use it you will need to load th
 
   $(document).ready(function () {
       jarn.i18n.loadCatalog('plone', 'el');
-      _ = MessageFactory('plone')
+      _ = jarn.i18n.MessageFactory('plone')
   });
 
 The second parameter in ``loadCatalog`` specifying the language is optional, when omitted the ``lang`` attribute in the ``html`` tag is used. 
