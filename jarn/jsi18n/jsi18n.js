@@ -62,15 +62,14 @@ jarn.i18n = {
     },
 
     MessageFactory: (function () {
-        var MessageFactory = function (domain) {
-            this.domain = domain;
-            this.translate = function (msgid, keywords, language) {
+        var MessageFactory = function (domain, language) {
+            this.translate = function (msgid, keywords) {
                 var msgstr;
-                if (typeof(language)==='undefined')
-                    language = jarn.i18n.currentLanguage;
                 if (!(domain in jarn.i18n.catalogs))
                     msgstr = msgid;
                 else if (!(language in jarn.i18n.catalogs[domain]))
+                    msgstr = msgid;
+                else if (!(msgid in jarn.i18n.catalogs[domain][language]))
                     msgstr = msgid;
                 else
                     msgstr = jarn.i18n.catalogs[domain][language][msgid];
@@ -85,8 +84,10 @@ jarn.i18n = {
                 return msgstr;
             };
         };
-        return function (domain) {
-            return new MessageFactory(domain).translate;
+        return function (domain, language) {
+            if (typeof(language)==='undefined')
+                language = jarn.i18n.currentLanguage;
+            return new MessageFactory(domain, language).translate;
         };
     }) ()
 };
