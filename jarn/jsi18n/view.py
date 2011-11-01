@@ -7,6 +7,7 @@ from zope.i18n.interfaces import ITranslationDomain
 
 class i18njs(BrowserView):
 
+    @ram.cache(lambda method, domain, language: domain+language)
     def _gettext_catalog(self, domain, language):
         td = queryUtility(ITranslationDomain, domain)
         if td is None or language not in td._catalogs:
