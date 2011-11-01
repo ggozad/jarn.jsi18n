@@ -5,6 +5,7 @@ jarn.i18n = {
     storage: null,
     catalogs: {},
     currentLanguage: null,
+    ttl: 24*3600*1000,
 
     init: function () {
         jarn.i18n.currentLanguage = $('html').attr('lang');
@@ -18,15 +19,24 @@ jarn.i18n = {
         } catch(e) {}
     },
 
+    setTTL: function (millis) {
+        jarn.i18n.ttl = millis;
+    },
+
     _setCatalog: function (domain, language, catalog) {
-        var key = domain + '-' + language;
-        if (jarn.i18n.storage!==null && !(key in jarn.i18n.storage))
-            jarn.i18n.storage.setItem(key, JSON.stringify(catalog));
         if (domain in jarn.i18n.catalogs)
             jarn.i18n.catalogs[domain][language] = catalog;
         else {
             jarn.i18n.catalogs[domain] = {};
             jarn.i18n.catalogs[domain][language] = catalog;
+        }
+    },
+
+    _storeCatalog: function (domain, language, catalog) {
+        var key = domain + '-' + language;
+        if (jarn.i18n.storage!==null) {
+            jarn.i18n.storage.setItem(key, JSON.stringify(catalog));
+            jarn.i18n.storage.setItem(key + '-updated', Date.now());
         }
     },
 
@@ -36,17 +46,18 @@ jarn.i18n = {
         if (jarn.i18n.storage!==null) {
             var key = domain + '-' + language;
             if (key in jarn.i18n.storage) {
-                catalog = JSON.parse(jarn.i18n.storage.getItem(key));
-                console.log('Loading');
-                jarn.i18n._setCatalog(domain, language, catalog);
-                return;
+                if ((Date.now() - parseInt(jarn.i18n.storage.getItem(key + '-updated'), 10))<jarn.i18n.ttl) {
+                    catalog = JSON.parse(jarn.i18n.storage.getItem(key));
+                    jarn.i18n._setCatalog(domain, language, catalog);
+                    return;
+                }
             }
         }
         $.getJSON(portal_url+'/jsi18n?' +
             'domain=' + domain + '&language='+language,
             function (catalog) {
-                console.log('JSON');
                 jarn.i18n._setCatalog(domain, language, catalog);
+                jarn.i18n._storeCatalog(domain, language, catalog);
             });
     },
 
