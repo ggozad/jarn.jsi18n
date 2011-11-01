@@ -5,14 +5,15 @@ version = '0.1'
 
 setup(name='jarn.jsi18n',
       version=version,
-      description="i18n for JS",
+      description="Plone i18n for JavaScript",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
         "Intended Audience :: Developers",
         "Programming Language :: Python",
+        "Programming Language :: JavaScript",
         ],
       keywords='plone javascript i18n',
       author='Yiorgis Gozadinos',

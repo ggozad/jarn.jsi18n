@@ -20,7 +20,7 @@
     name="default"
     title="jarn.jsi18n"
     directory="profiles/default"
-    description="i18n for JS in Plone"
+    description="Plone i18n for JavaScript"
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
