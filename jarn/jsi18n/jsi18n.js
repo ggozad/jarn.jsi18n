@@ -56,6 +56,9 @@
             $.getJSON(portal_url + '/jsi18n?' +
                 'domain=' + domain + '&language=' + language,
                 function (catalog) {
+                    if (catalog === null) {
+                        return;
+                    }
                     jarn.i18n._setCatalog(domain, language, catalog);
                     jarn.i18n._storeCatalog(domain, language, catalog);
                 });

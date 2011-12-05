@@ -9,7 +9,7 @@ describe('jarn.jsi18n Package', function () {
     };
 
     var fakeJSON = function (url, success) {
-        var result, queryString = {};
+        var result=null, queryString = {};
         url.replace(
             new RegExp("([^?=&]+)(=([^&]*))?", "g"),
             function ($0, $1, $2, $3) { queryString[$1] = $3; }
@@ -23,11 +23,14 @@ describe('jarn.jsi18n Package', function () {
     beforeEach(function () {
         localStorage.clear();
         portal_url  = 'http://localhost';
+        jarn.i18n.init();
         spyOn($, 'getJSON').andCallFake(fakeJSON);
     });
 
     it('can load an i18n message catalog', function () {
         jarn.i18n.loadCatalog('plone', 'el');
+        expect(jarn.i18n.catalogs.plone).toBeDefined();
+        expect(jarn.i18n.catalogs.plone.el).toBeDefined();
         expect(jarn.i18n.catalogs.plone.el).toEqual(plone_el);
     });
 
@@ -36,5 +39,10 @@ describe('jarn.jsi18n Package', function () {
         expect(localStorage.getItem('plone-el')).toEqual(JSON.stringify(plone_el));
     });
 
+    it('will not store anything if no catalog is returned when loadCatalog() is called', function () {
+        jarn.i18n.loadCatalog('pl0ne', 'el');
+        expect(jarn.i18n.catalogs.pl0ne).toBeUndefined();
+        expect(localStorage.getItem('pl0ne-el')).toBeNull();
+    });
 
 });
