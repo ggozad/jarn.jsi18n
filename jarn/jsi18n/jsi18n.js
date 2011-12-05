@@ -65,14 +65,10 @@
             var MessageFactory = function (domain, language) {
                 this.translate = function (msgid, keywords) {
                     var msgstr;
-                    if (!(domain in jarn.i18n.catalogs)) {
-                        msgstr = msgid;
-                    } else if (!(language in jarn.i18n.catalogs[domain])) {
-                        msgstr = msgid;
-                    } else if (!(msgid in jarn.i18n.catalogs[domain][language])) {
-                        msgstr = msgid;
-                    } else {
+                    if ((domain in jarn.i18n.catalogs) && (language in jarn.i18n.catalogs[domain]) && (msgid in jarn.i18n.catalogs[domain][language])) {
                         msgstr = jarn.i18n.catalogs[domain][language][msgid];
+                    } else {
+                        msgstr = msgid;
                     }
                     if (typeof (keywords) !== 'undefined') {
                         var regexp, keyword;
