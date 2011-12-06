@@ -2,8 +2,14 @@
 Changelog
 =========
 
-0.2 - Unreleased
+0.2 - 
 ----------------
+
+- A few bug fixes.
+  [ggozad]
+
+- Test coverage with jasmine.js
+  [ggozad]
 
 0.11 - 2011-11-01
 -----------------
