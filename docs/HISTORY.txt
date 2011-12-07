@@ -2,8 +2,11 @@
 Changelog
 =========
 
-0.2 - 
+0.3 - Unreleased
 ----------------
+
+0.2 - 2011-12-6
+---------------
 
 - A few bug fixes.
   [ggozad]
