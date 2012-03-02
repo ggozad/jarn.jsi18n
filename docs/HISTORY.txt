@@ -4,6 +4,8 @@ Changelog
 
 0.3 - Unreleased
 ----------------
+- simpler MessageFactory
+  [mmariani]
 
 0.2 - 2011-12-6
 ---------------
