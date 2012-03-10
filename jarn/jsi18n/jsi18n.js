@@ -64,34 +64,28 @@
                 });
         },
 
-        MessageFactory: (function () {
-            var MessageFactory = function (domain, language) {
-                this.translate = function (msgid, keywords) {
-                    var msgstr;
-                    if ((domain in jarn.i18n.catalogs) && (language in jarn.i18n.catalogs[domain]) && (msgid in jarn.i18n.catalogs[domain][language])) {
-                        msgstr = jarn.i18n.catalogs[domain][language][msgid];
-                    } else {
-                        msgstr = msgid;
-                    }
-                    if (typeof (keywords) !== 'undefined') {
-                        var regexp, keyword;
-                        for (keyword in keywords) {
-                            if (keywords.hasOwnProperty(keyword)) {
-                                regexp = RegExp("\\$\\{" + keyword + '\\}', 'g');
-                                msgstr = msgstr.replace(regexp, keywords[keyword]);
-                            }
+        MessageFactory: function (domain, language) {
+            language = language || jarn.i18n.currentLanguage;
+
+            return function translate (msgid, keywords) {
+                var msgstr;
+                if ((domain in jarn.i18n.catalogs) && (language in jarn.i18n.catalogs[domain]) && (msgid in jarn.i18n.catalogs[domain][language])) {
+                    msgstr = jarn.i18n.catalogs[domain][language][msgid];
+                } else {
+                    msgstr = msgid;
+                }
+                if (keywords) {
+                    var regexp, keyword;
+                    for (keyword in keywords) {
+                        if (keywords.hasOwnProperty(keyword)) {
+                            regexp = RegExp("\\$\\{" + keyword + '\\}', 'g');
+                            msgstr = msgstr.replace(regexp, keywords[keyword]);
                         }
                     }
-                    return msgstr;
-                };
-            };
-            return function (domain, language) {
-                if (typeof (language) === 'undefined') {
-                    language = jarn.i18n.currentLanguage;
                 }
-                return new MessageFactory(domain, language).translate;
+                return msgstr;
             };
-        })()
+        }
     };
 
     jarn.i18n.init();
