@@ -4,6 +4,7 @@ Changelog
 
 0.3 - Unreleased
 ----------------
+- Do not cache null catalog contents
 - simpler MessageFactory
   [mmariani]
 

@@ -33,7 +33,8 @@
 
         _storeCatalog: function (domain, language, catalog) {
             var key = domain + '-' + language;
-            if (jarn.i18n.storage !== null) {
+            if (jarn.i18n.storage !== null &&
+                catalog !== null) {
                 jarn.i18n.storage.setItem(key, JSON.stringify(catalog));
                 jarn.i18n.storage.setItem(key + '-updated', Date.now());
             }
