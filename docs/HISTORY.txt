@@ -2,6 +2,10 @@
 Changelog
 =========
 
+0.4 - Unreleased
+----------------
+
+
 0.3 - 2012-12-17
 ----------------
 - Do not cache null catalog contents
