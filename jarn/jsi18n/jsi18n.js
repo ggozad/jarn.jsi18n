@@ -10,6 +10,13 @@
         ttl: 24 * 3600 * 1000,
 
         init: function () {
+            // Internet Explorer 8 does not know Date.now() which is used in e.g. loadCatalog, so we "define" it
+            if (!Date.now) {
+                Date.now = function() {
+                    return new Date().valueOf();
+                }
+            }
+            
             jarn.i18n.currentLanguage = $('html').attr('lang');
             try {
                 if ('localStorage' in window && window.localStorage !== null && 'JSON' in window && window.JSON !== null) {
