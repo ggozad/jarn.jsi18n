@@ -2,6 +2,13 @@
 Changelog
 =========
 
+1.1 - Unreleased
+----------------
+
+-  Fix for Internet Explorer 8, defining Date.now() in jsi18n.js: IE8 does not know Date.now() by default 
+   [kysr]
+
+
 0.4 - Unreleased
 ----------------
 
