@@ -16,7 +16,7 @@
                     return new Date().valueOf();
                 }
             }
-            
+
             jarn.i18n.currentLanguage = $('html').attr('lang');
             try {
                 if ('localStorage' in window && window.localStorage !== null && 'JSON' in window && window.JSON !== null) {
@@ -93,7 +93,29 @@
                 }
                 return msgstr;
             };
+        },
+
+        translate: function (msgid, domain, keywords) {
+            language = jarn.i18n.currentLanguage;
+
+            var msgstr;
+            if ((domain in jarn.i18n.catalogs) && (language in jarn.i18n.catalogs[domain]) && (msgid in jarn.i18n.catalogs[domain][language])) {
+                msgstr = jarn.i18n.catalogs[domain][language][msgid];
+            } else {
+                msgstr = msgid;
+            }
+            if (keywords) {
+                var regexp, keyword;
+                for (keyword in keywords) {
+                    if (keywords.hasOwnProperty(keyword)) {
+                        regexp = RegExp("\\$\\{" + keyword + '\\}', 'g');
+                        msgstr = msgstr.replace(regexp, keywords[keyword]);
+                    }
+                }
+            }
+            return msgstr;
         }
+
     };
 
     jarn.i18n.init();

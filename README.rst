@@ -20,7 +20,7 @@ In order to instantiate a ``MessageFactory`` and use it you will need to load th
       _ = jarn.i18n.MessageFactory('plone')
   });
 
-The second parameter in ``loadCatalog`` specifying the language is optional, when omitted the ``lang`` attribute in the ``html`` tag is used. 
+The second parameter in ``loadCatalog`` specifying the language is optional, when omitted the ``lang`` attribute in the ``html`` tag is used.
 
 Now that we have a message factory we can use it to get translated strings::
 
@@ -38,6 +38,15 @@ You can if you wish load multiple catalogs (or languages for the same catalog) a
   > _es = jarn.i18n.MessageFactory('plone', 'es');
   > _es('Contributor');
   "Contribuyente"
+
+Another way of doing transation is.
+
+  > jarn.i18n.loadCatalog('plone', 'es');
+  > _ = jarn.i18n.translate
+  > _(msgid = 'Contributor', domain = 'plone');
+  "Contribuyente"
+
+Here you have a better tracking of wich domain is used for a translation for automated parsing.
 
 Caching
 -------
