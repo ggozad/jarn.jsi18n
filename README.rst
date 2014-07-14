@@ -1,3 +1,8 @@
+WARNING
+=======
+This repo is depracated. The canonical one can be found at https://github.com/collective/jarn.jsi18n
+
+
 Introduction
 ============
 
