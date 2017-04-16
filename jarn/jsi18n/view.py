@@ -18,12 +18,18 @@ class i18njs(BrowserView):
         td = queryUtility(ITranslationDomain, domain)
         if td is None or language not in td._catalogs:
             return
+
         mo_path = td._catalogs[language][0]
-        catalog = td._data[mo_path]._catalog
-        if catalog is None:
-            td._data[mo_path].reload()
+
+        dict_ = {}
+        for mo_path in td._catalogs[language]:
             catalog = td._data[mo_path]._catalog
-        return catalog._catalog
+            if catalog is None:
+                td._data[mo_path].reload()
+                catalog = td._data[mo_path]._catalog
+            for k, v in catalog._catalog.items():
+                dict_[k] = v
+        return dict_
 
     def __call__(self, domain, language=None):
         if domain is None:
